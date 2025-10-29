@@ -1,0 +1,12 @@
+# --- Core ML & Data ---
+pandas
+numpy
+scikit-learn
+joblib
+
+# --- Backend / API ---
+flask
+
+# --- (Facoltativo ma utile in futuro) ---
+# gunicorn    # per deploy su server Linux (production)
+# flask-cors  # se servirai richieste dal frontend (React, Vue, ecc.)

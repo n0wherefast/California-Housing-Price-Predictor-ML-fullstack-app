@@ -1,0 +1,76 @@
+# ============================================
+# 🧠 GENERALE
+# ============================================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.tmp
+*.log
+*.DS_Store
+.env
+.env.local
+*.sqlite3
+*.db
+
+# ============================================
+# 🐍 BACKEND (Flask / Python)
+# ============================================
+.venv/
+venv/
+env/
+instance/
+*.pyc
+*.pkl
+*.joblib
+__pycache__/
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+*.coverage
+coverage.xml
+htmlcov/
+.cache/
+pytest_cache/
+.tox/
+
+# Modelli e metriche generati
+backend/model/housing_model.joblib
+backend/model/metrics.json
+
+# ============================================
+# 💻 FRONTEND (Next.js / Node)
+# ============================================
+node_modules/
+.next/
+out/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+.vscode/
+.idea/
+.DS_Store
+
+# Build e cache
+frontend/.next/
+frontend/node_modules/
+frontend/out/
+frontend/.turbo/
+frontend/.vercel/
+frontend/.eslintcache
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.production.local
+frontend/.env.test.local
+
+# ============================================
+# 📦 SISTEMI DI VERSIONE / VARI
+# ============================================
+*.bak
+Thumbs.db
+desktop.ini
