@@ -23,7 +23,6 @@ env/
 instance/
 *.pyc
 *.pkl
-*.joblib
 __pycache__/
 *.egg-info/
 *.egg
