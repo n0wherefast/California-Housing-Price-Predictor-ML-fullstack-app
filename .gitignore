@@ -36,8 +36,7 @@ pytest_cache/
 .tox/
 
 # Modelli e metriche generati
-backend/model/housing_model.joblib
-backend/model/metrics.json
+
 
 # ============================================
 # 💻 FRONTEND (Next.js / Node)
