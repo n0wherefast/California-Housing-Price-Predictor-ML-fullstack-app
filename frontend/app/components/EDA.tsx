@@ -1,10 +1,29 @@
 'use client'
+import React from "react";
+import dynamic from "next/dynamic";
 
 import { useEffect, useState } from "react";
 import {EdaData} from "../ref/types";
-import {BarchartMedianIncome ,BarchartDistAge,BarchartDistValueHouse,HeatMap} from "./BarChart";
-import GeoMapLeaflet from "./GeoMapPlotly";
 
+import GeoMapLeaflet from "./GeoMapPlotly";
+const BarchartMedianIncome = dynamic(
+  () => import("./BarChart").then(mod => mod.BarchartMedianIncome),
+  { ssr: false }
+);
+const BarchartDistAge = dynamic(
+  () => import("./BarChart").then(mod => mod.BarchartDistAge),
+  { ssr: false }
+);
+
+const BarchartDistValueHouse = dynamic(
+  () => import("./BarChart").then(mod => mod.BarchartDistValueHouse),
+  { ssr: false }
+);
+
+const HeatMap = dynamic(
+  () => import("./BarChart").then(mod => mod.HeatMap),
+  { ssr: false }
+);
 
 
 
@@ -49,7 +68,7 @@ function EDA() {
         const distIncome = makeDist(data.distributions.median_income);
         const distAge = makeDist(data.distributions.housing_median_age);
         const distValue = makeDist(data.distributions.median_house_value);
-        
+
         return (
         <div className=" max-w-6xl mx-auto md:p-8 bg-white mt-10 rounded-2xl shadow">
             
