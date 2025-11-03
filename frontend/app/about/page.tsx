@@ -1,3 +1,4 @@
+
 export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white mt-10 rounded-2xl shadow-md">
@@ -5,7 +6,7 @@ export default function AboutPage() {
         ℹ️ About & Dataset Info
       </h2>
 
-      <p className="text-gray-700 leading-relaxed mb-4">
+      <p className="text-gray-700 leading-relaxed mb-4 text-lg">
         Questo progetto utilizza il dataset{" "}
         <strong>California Housing Prices</strong>, fornito dal{" "}
         <a
@@ -23,11 +24,12 @@ export default function AboutPage() {
 
       <ul className="list-disc list-inside text-gray-700 mb-6">
         <li><strong>latitude / longitude</strong> – coordinate geografiche</li>
-        <li><strong>housing_median_age</strong> – età mediana delle abitazioni</li>
+        <li><strong>housing median age</strong> – età mediana delle abitazioni</li>
         <li><strong>total_rooms / total_bedrooms</strong> – numero medio di stanze</li>
         <li><strong>population / households</strong> – densità abitativa</li>
         <li><strong>median_income</strong> – reddito medio (in decine di migliaia di $)</li>
-        <li><strong>ocean_proximity</strong> – distanza dal mare</li>
+        <li><strong>ocean proximity</strong> – distanza dal mare</li>
+        <li><strong>households</strong> – Il numero di nuclei familiari all’interno di una piccola area geografica</li>
       </ul>
 
       <h3 className="text-2xl font-semibold text-gray-800 mb-3">
@@ -59,7 +61,7 @@ export default function AboutPage() {
         🎯 Obiettivo del progetto
       </h3>
 
-      <p className="text-gray-700 leading-relaxed">
+      <p className="text-gray-700 leading-relaxed text-lg">
         Dimostrare come sia possibile creare un’applicazione completa di{" "}
         <strong>Data Science + Web Development</strong>, unendo un modello di
         machine learning Python a un’interfaccia moderna e reattiva.

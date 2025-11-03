@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import {HouseFeatures,PredictionResult} from "../ref/types"
+import {HouseFeatures} from "../ref/types"
+
+export type PredictionResult = {
+  predicted_house_value?: number | string;
+  error?: string;
+};
+
 
 export default function HouseForm() {
   const [form, setForm] = useState<HouseFeatures>({
@@ -16,7 +22,10 @@ export default function HouseForm() {
     ocean_proximity: "NEAR BAY",
   });
 
-  const [result, setResult] = useState<PredictionResult | null>(null);
+const [result, setResult] = useState<PredictionResult | null>({
+  predicted_house_value: "Valore stimato: ",
+});
+
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement> ) => {
@@ -47,59 +56,88 @@ export default function HouseForm() {
       setLoading(false);
     }
   };
-
-
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: 2,
-    }).format(value);
+  function formatCurrency(value: string | number | undefined) {
+  const num = Number(value);
+  if (isNaN(num)) return " ";
+  return num.toLocaleString("it-IT", {
+    style: "currency",
+    currency: "EUR",
+  });
+}
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-md mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-        Predizione Prezzo Casa 🏡
-      </h2>
+        <div className="flex justify-center md:max-h-[74vh] md:min-h-[60vh] p-6 px-4  mt-4">
+        <div className="max-w-2xl   "></div>
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-lg rounded-2xl p-6 w-full "
+      >
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          Predizione Prezzo Casa 🏠
+        </h2>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4 text-black">
-        {Object.keys(form).map((key) =>
-          key !== "ocean_proximity" ? (
-          <div key={key}> 
-                <p>{key}</p>
-                <input
-                // key={key}
-                type="number"
+        {/* 🔹 GRID mobile-first */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            ["longitude", "Longitude"],
+            ["latitude", "Latitude"],
+            ["housing_median_age", "Housing Median Age"],
+            ["total_rooms", "Total Rooms"],
+            ["total_bedrooms", "Total Bedrooms"],
+            ["population", "Population"],
+            ["households", "Households"],
+            ["median_income", "Median Income"],
+          ].map(([key, label]) => {
+            const field = key as keyof HouseFeatures;
+           return( <div key={key} className="flex flex-col">
+              <label
+                htmlFor={key}
+                className="text-sm font-semibold text-gray-700 mb-1"
+              >
+                {label}
+              </label>
+              <input
+                type="text"
+                id={key}
                 name={key}
-                placeholder={key}
-                value={(form as any)[key]}
+                value={form [field]}
                 onChange={handleChange}
-                className="border p-2 rounded"
-                required
-                />
-            </div> 
-          ) : (
-            <select
-              key={key}
-              name={key}
-              value={form.ocean_proximity}
-              onChange={handleChange}
-              className="border p-2 rounded col-span-2"
-            >
-              <option>NEAR BAY</option>
-              <option>INLAND</option>
-              <option>NEAR OCEAN</option>
-              <option>ISLAND</option>
-              <option>1H OCEAN</option>
-            </select>
-          )
-         )
-        }
-        
+                className="border rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder={`Inserisci ${label.toLowerCase()}`}
+                title={label}
+              />
+            </div>)
+          })}
+        </div>
+
+        {/* 🔹 Select - Ocean Proximity */}
+        <div className="mt-4">
+          <label
+            htmlFor="ocean_proximity"
+            className="text-sm font-semibold text-gray-700 mb-1 block"
+          >
+            Ocean Proximity
+          </label>
+          <select
+            id="ocean_proximity"
+            name="ocean_proximity"
+            value={form.ocean_proximity}
+            onChange={handleChange}
+            className="border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="NEAR BAY">Near Bay</option>
+            <option value="INLAND">Inland</option>
+            <option value="NEAR OCEAN">Near Ocean</option>
+            <option value="ISLAND">Island</option>
+            <option value="1H OCEAN">1H Ocean</option>
+          </select>
+        </div>
+
+        {/* 🔹 Submit Button */}
         <button
           type="submit"
           disabled={loading}
-          className={`col-span-2 text-white font-semibold py-2 rounded transition ${
+          className={`mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow transition-colors ${
             loading
               ? "bg-blue-400 cursor-not-allowed"
               : "bg-blue-600 hover:bg-blue-700"
@@ -114,20 +152,25 @@ export default function HouseForm() {
             "Predici Valore"
           )}
         </button>
-      </form>
-
-      {result && (
-        <div className="mt-6 text-center">
+        <div className="border-2 border-slate-500 mt-3 w-full  rounded-lg ">
+         {result && (
+        <div className="h-12 text-center flex justify-center items-center">
           {result.error ? (
             <p className="text-red-500">{result.error}</p>
           ) : (
            <p className="text-xl font-semibold text-green-600 transition-opacity duration-700 opacity-100">
               💰 Valore stimato: {" "}
-              { formatCurrency(result.predicted_house_value?? 0)}
+            {formatCurrency(
+                typeof result.predicted_house_value === "string" ? parseFloat(result.predicted_house_value) : result.predicted_house_value ?? 0
+                )
+}
             </p>
           )}
         </div>
       )}
+         </div>
+      </form>
+      
     </div>
   );
 }

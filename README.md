@@ -49,15 +49,21 @@ CALIFORNIA_HOUSING/
 │       └── housing.csv            # dataset
 │
 ├── frontend/
-│   ├── src/app/
-│   │   ├── components/HouseForm.tsx
-│   │   ├── page.tsx
-│   │   ├── about/page.tsx
-│   │   └── metrics/page.tsx
-│   ├── .env.local
-│   └── package.json
+│   ├── app/
+│   │   ├── components/            # componenti React/Next.js
+│   │   ├── about/                 # pagina informazioni
+│   │   ├── metrics/               # pagina metriche modello
+│   │   └── page.tsx               # home con form predizione
+│   ├── public/
+│   ├── package.json
+│   └── .env.local
+│
+├── notebook/
+│   ├── EDA_datasets.ipynb         # esplorazione e visualizzazione dati
+│   └── housing_Reg_Lin_improved.ipynb
 │
 └── README.md
+
 ```
 
 ---

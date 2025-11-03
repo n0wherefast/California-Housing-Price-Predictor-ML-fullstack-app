@@ -1,34 +1,72 @@
-import React from 'react'
-import Link from 'next/link'
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 function Nav() {
+    
+  const [open, setOpen] = useState(false);
+  const navLinks = [
+      { href: "/", label: "Home" },
+      { href: "#EDA", label: "EDA" },
+      { href: "#MT", label: "Metrics" },
+      { href: "#AB", label: "About" },
+      { href: "https://github.com/n0wherefast/California-Housing-Price-Predictor-ML-fullstack-app", label: "GitHub" },
+    ];
+
   return (
     <>
-      <nav className="bg-white shadow-md py-4 px-8 flex justify-between items-center">
-  <div className="flex items-center gap-2">
-    <span className="text-2xl">🏠</span>
-    <h1 className="text-xl font-bold text-blue-700">
-      California Housing Price Predictor
-    </h1>
-  </div>
 
-  <div className="flex gap-6">
-    <Link href="/" className="hover:text-blue-600 font-medium">
-      Home
-    </Link>
-    <Link href="/about" className="hover:text-blue-600 font-medium">
-      About
-    </Link>
-    <a
-      href="https://github.com/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="hover:text-blue-600 font-medium"
-    >
-      GitHub
-    </a>
-  </div>
-</nav>
+
+ <nav className="bg-blue-600 text-white shadow-md fixed top-0 left-0 right-0 z-9999 font-bold">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              {/* Titolo / Logo */}
+              <Link href="/" className="text-lg sm:text-xl font-bold">
+                California Housing Dashboard
+              </Link>
+
+              {/* Menu mobile toggle */}
+              <button
+                onClick={() => setOpen(!open)}
+                className="sm:hidden focus:outline-none"
+                aria-label="Apri menu"
+              >
+                {open ? <X size={26} /> : <Menu size={26} />}
+              </button>
+
+              {/* Menu desktop */}
+              <div className="hidden sm:flex space-x-6">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="hover:text-blue-200 transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Menu mobile aperto */}
+          {open && (
+            <div className="sm:hidden bg-blue-700 shadow-inner">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="block px-4 py-3 border-b border-blue-600 hover:bg-blue-600 transition"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          )}
+        </nav>
 
     </>
   )

@@ -15,6 +15,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import json
 
 
 # ======================================================
@@ -81,15 +82,29 @@ def train_model(df: pd.DataFrame):
 
     # Valutazione
     y_pred = model.predict(X_test)
-    r2 = r2_score(y_test, y_pred)
+    r2_test = r2_score(y_test, y_pred)
+    r2_train = model.score(X_train,y_train)
     mae = mean_absolute_error(y_test, y_pred)
     rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 
-    print(f"R2: {r2:.3f}")
-    print(f"MAE: {mae:.2f}")
-    print(f"RMSE: {rmse:.2f}")
+# ✅ Arrotondamento a un decimale
+    metrics = {
+    "R2_train": round(r2_train, 3),
+    "R2_test": round(r2_test, 3),
+    "MAE": round(mae, 1),
+    "RMSE": round(rmse, 1)
+    }
 
-    return model, {"r2": r2, "mae": mae, "rmse": rmse}
+    print(f"R2_train: {metrics['R2_train']}")
+    print(f"R2_test: {metrics['R2_test']}")
+    print(f"MAE: {metrics['MAE']}")
+    print(f"RMSE: {metrics['RMSE']}")
+
+    with open(Path(__file__).parent / "metrics.json", "w") as f:
+        json.dump(metrics, f, indent=4)
+
+
+    return model, metrics
 
 
 # ======================================================
