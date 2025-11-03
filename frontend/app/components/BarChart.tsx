@@ -10,7 +10,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
-import {HeatMapProps ,HouseFeatures} from "../ref/types"
+import {HeatMapProps} from "../ref/types"
 
 
 function BarchartMedianIncome({distIncome}:any) {
@@ -22,13 +22,6 @@ function BarchartMedianIncome({distIncome}:any) {
               <ResponsiveContainer width="100%" height={350}>
                 <BarChart data={distIncome} margin={{ top: 10, right: 5, bottom: 20, left: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" />
-
-                    {/* <Bar dataKey="count" fill="#2563eb" radius={[4, 4, 0, 0]} /> */}
-                    {/* <Tooltip
-                    formatter={(value: number) =>
-                        `${value.toLocaleString("it-IT")} case`
-                    }
-                    /> */}
                 <XAxis
                     dataKey="bin"
                     tick={{ fontSize: 11 }}

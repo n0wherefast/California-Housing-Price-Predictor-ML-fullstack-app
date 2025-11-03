@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import {EdaData} from "../ref/types";
 
-import GeoMapLeaflet from "./GeoMapPlotly";
+
 const BarchartMedianIncome = dynamic(
   () => import("./BarChart").then(mod => mod.BarchartMedianIncome),
   { ssr: false }
@@ -24,6 +24,9 @@ const HeatMap = dynamic(
   () => import("./BarChart").then(mod => mod.HeatMap),
   { ssr: false }
 );
+
+
+const GeoMapLeaflet = dynamic(() => import("./GeoMapPlotly"), { ssr: false });
 
 
 

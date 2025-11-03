@@ -1,15 +1,37 @@
 "use client";
-import { MapContainer, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+// import { MapContainer, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
 import {Props} from "../ref/types"
+
+const MapContainer = dynamic(
+  () => import("react-leaflet").then(mod => mod.MapContainer),
+  { ssr: false }
+);
+const TileLayer = dynamic(
+  () => import("react-leaflet").then(mod => mod.TileLayer),
+  { ssr: false }
+);
+const CircleMarker = dynamic(
+  () => import("react-leaflet").then(mod => mod.CircleMarker),
+  { ssr: false }
+);
+const Tooltip = dynamic(
+  () => import("react-leaflet").then(mod => mod.Tooltip),
+  { ssr: false }
+);
 
 
 
 export default function GeoMapLeaflet({ data }: Props) {
+         const [isClient, setIsClient] = useState(false);
 
+  // Evita errori "window is not defined" durante SSR
+             useEffect(() => setIsClient(true), []);
 
         if (!data || data.length === 0)
             return <p className="text-center text-gray-500">Nessun dato disponibile</p>;
-
+          if (!isClient) return <p>🗺️ Caricamento mappa...</p>;
         // scala colore semplice (blu -> giallo -> rosso)
 
         const colorScale = (value: number) => {
