@@ -1,7 +1,11 @@
+'use client'
 import HouseForm from "./components/HouseForm";
-import EDA from "./components/EDA";
 import AboutPage from "./about/page";
 import MetricsPage from "./metrics/page";
+import dynamic from "next/dynamic";
+
+const EDA = dynamic(() => import("./components/EDA"), { ssr: false });
+
 
 export default function Home() {
   return (
