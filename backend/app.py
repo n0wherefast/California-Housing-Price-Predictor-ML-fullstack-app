@@ -9,15 +9,11 @@ from pathlib import Path
 # --- Configurazione app Flask ---
 app = Flask(__name__)
 
-CORS(app,
-     resources={r"/*": {"origins": [
-         "http://localhost:3000",
-         "http://127.0.0.1:3000",
-         "https://california-housing-price-predictor-vercel.app"
-     ]}},
-     supports_credentials=True,
-     allow_headers=["Content-Type", "Authorization"],
-     expose_headers=["Content-Type", "Authorization"])
+CORS(
+    app,
+    resources={r"/*": {"origins": "*"}},  # accetta tutte le origini
+    supports_credentials=True
+)
 
 # --- Percorsi ---
 BASE_DIR = Path(__file__).parent
