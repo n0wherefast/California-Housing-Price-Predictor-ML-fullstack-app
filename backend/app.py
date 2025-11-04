@@ -9,10 +9,29 @@ from pathlib import Path
 # --- Configurazione app Flask ---
 app = Flask(__name__)
 
+
+def handle_options():
+    if request.method == "OPTIONS":
+        response = app.make_default_options_response()
+        headers = None
+        if "ACCESS_CONTROL_REQUEST_HEADERS" in request.headers:
+            headers = request.headers["ACCESS_CONTROL_REQUEST_HEADERS"]
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Headers", headers or "*")
+        response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        return response
+
 CORS(
     app,
-    resources={r"/*": {"origins": "*"}},  # accetta tutte le origini
-    supports_credentials=True
+    resources={r"/*": {"origins": [
+        "https://california-housing-price-predictor-vercel.app",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000"
+    ]}},
+    supports_credentials=True,
+    allow_headers=["Content-Type", "Authorization"],
+    expose_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "OPTIONS"]
 )
 
 # --- Percorsi ---
