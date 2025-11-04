@@ -7,18 +7,16 @@ import json
 import  numpy as np
 # Inizializzazione app Flask
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": [
+CORS(app, origins=[
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://california-housing-price-predictor.vercel.app/"
-]}})
+    "https://california-housing-price-predictor-vercel.app"
+])
 
-# Caricamento modello salvato
+# --- Caricamento modello salvato ---
 MODEL_PATH = Path(__file__).parent / "model" / "housing_model.joblib"
 METRICS_PATH = Path(__file__).parent / "model" / "metrics.json"
 DATA_PATH = Path(__file__).parent / "data" / "housing.csv"
-
-model = joblib.load(MODEL_PATH)
 
 # Endpoint base
 @app.route("/", methods=["GET"])
@@ -73,23 +71,8 @@ def eda():
         df = df[df["housing_median_age"] <= 50]
         df = df[df["median_income"] <= 15]
 
-        # Statistiche principali
-        # stats = df.describe(include="all").to_dict()
-
-
          # Funzione helper per serializzare i bins
         def make_distribution(series, bins=10, round_digits=2):
-            # Calcola distribuzione con bins uniformi
-            # dist = series.value_counts(bins=bins, sort=False)
-
-            # # Converte intervalli in stringhe compatte e leggibili
-            # formatted = {}
-            # for interval, count in dist.items():
-            #     # Intervallo come 1.0–2.0, senza parentesi
-            #     left = round(interval.left, round_digits)
-            #     right = round(interval.right, round_digits)
-            #     formatted[f"{left}–{right}"] = int(count)
-
             counts, bin_edges = np.histogram(series, bins=bins)
 
             # Crea un dizionario leggibile con TUTTI gli intervalli (anche quelli vuoti)
@@ -99,11 +82,6 @@ def eda():
                 right = round(bin_edges[i + 1], round_digits)
                 formatted[f"{left} – {right}"] = int(counts[i])
             return formatted
-        
-        
-
-
-
 
         stats = df.describe(include="all").replace({np.nan: None}).to_dict() 
 
