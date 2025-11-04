@@ -10,10 +10,8 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://california-housing-price-predictor.vercel.app"
+    "https://california-housing-price-predictor.vercel.app/"
 ]}})
-
-
 
 # Caricamento modello salvato
 MODEL_PATH = Path(__file__).parent / "model" / "housing_model.joblib"
