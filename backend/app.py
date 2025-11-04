@@ -133,3 +133,9 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(environ.get("PORT", 5000)))
 
 
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "https://california-housing-price-predictor-vercel.app"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    return response
