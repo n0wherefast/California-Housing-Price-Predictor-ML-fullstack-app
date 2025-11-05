@@ -35,7 +35,10 @@ function EDA() {
         const [loading, setLoading] = useState(true);
 
         useEffect(() => {
-            fetch(`${process.env.NEXT_PUBLIC_API_URL}/eda`)
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/eda`,{
+                mode:'cors'
+            }
+            )
             .then((res) => res.json())
             .then((json) => setData(json))
             .catch((err) => console.error("Errore caricamento EDA:", err))
