@@ -14,7 +14,6 @@ CORS(
     resources={r"/*": {"origins": [
         # "http://localhost:3000"
         "https://california-housing-price-predictor-vercel.app",
-        
     ]}},
     supports_credentials=True,
     expose_headers=["Content-Type", "Authorization"]
