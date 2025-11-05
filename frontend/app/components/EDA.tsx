@@ -34,21 +34,50 @@ function EDA() {
         const [data, setData] = useState<EdaData | null>(null);
         const [loading, setLoading] = useState(true);
 
+        // useEffect(() => {
+        //     fetch(`${process.env.NEXT_PUBLIC_API_URL}/eda`,{
+        //        method: "GET",
+        //         headers: {
+        //         "Content-Type": "application/json",
+        //         },
+        //         mode: "cors",              
+        //         credentials: "include", 
+        //     }
+        //     )
+        //     .then((res) => res.json())
+        //     .then((json) => setData(json))
+        //     .catch((err) => console.error("Errore caricamento EDA:", err))
+        //     .finally(() => setLoading(false));
+        // }, []);
+
         useEffect(() => {
-            fetch(`${process.env.NEXT_PUBLIC_API_URL}/eda`,{
-               method: "GET",
+            console.log("🌐 Fetch EDA da:", `${process.env.NEXT_PUBLIC_API_URL}/eda`);
+
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/eda`, {
+                method: "GET",
                 headers: {
                 "Content-Type": "application/json",
                 },
-                mode: "cors",              
-                credentials: "include", 
-            }
-            )
-            .then((res) => res.json())
-            .then((json) => setData(json))
-            .catch((err) => console.error("Errore caricamento EDA:", err))
-            .finally(() => setLoading(false));
-        }, []);
+                mode: "cors",
+            })
+                .then(async (res) => {
+                console.log("✅ Risposta ricevuta:", res.status, res.statusText);
+                const text = await res.text(); // leggiamo sempre il testo grezzo
+                try {
+                    const json = JSON.parse(text);
+                    console.log("📦 JSON ricevuto:", json);
+                    setData(json);
+                } catch (err) {
+                    console.error("⚠️ Errore nel parse JSON:", text, err);
+                    throw err;
+                }
+                })
+                .catch((err) => console.error("❌ Errore caricamento EDA:", err));
+            }, []);
+
+
+
+
 
         const makeDist = (obj: Record<string, number>) => {
             const arr = Object.entries(obj).map(([bin, count]) => ({
