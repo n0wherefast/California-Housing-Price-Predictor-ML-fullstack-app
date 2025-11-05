@@ -9,15 +9,41 @@ from pathlib import Path
 # --- Configurazione app Flask ---
 app = Flask(__name__)
 
+# CORS(
+#     app,
+#     resources={r"/*": {"origins": [
+#         # "http://localhost:3000"
+#         "https://california-housing-price-predictor-vercel.app",
+#     ]}},
+#     supports_credentials=True,
+#     expose_headers=["Content-Type", "Authorization"]
+# )
+ALLOWED_ORIGINS = [
+    "https://california-housing-price-predictor.vercel.app",
+    "http://localhost:3000"
+]
 CORS(
     app,
-    resources={r"/*": {"origins": [
-        # "http://localhost:3000"
-        "https://california-housing-price-predictor-vercel.app",
-    ]}},
+    origins=ALLOWED_ORIGINS,
+    methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
+    expose_headers=["Content-Type", "Authorization"],
     supports_credentials=True,
-    expose_headers=["Content-Type", "Authorization"]
 )
+
+
+@app.before_request
+def handle_preflight():
+    if request.method == "OPTIONS":
+        response = app.make_default_options_response()
+        headers = response.headers
+
+        headers["Access-Control-Allow-Origin"] = request.headers.get("Origin", "")
+        headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        headers["Access-Control-Allow-Credentials"] = "true"
+
+        return response
 # --- Percorsi ---
 BASE_DIR = Path(__file__).parent
 MODEL_PATH = BASE_DIR / "model" / "housing_model.joblib"
@@ -50,6 +76,8 @@ def predict():
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+
 
 # --- Endpoint metriche modello ---
 @app.route("/metrics", methods=["GET"])
@@ -110,6 +138,7 @@ def eda():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
 
 # --- Avvio server ---
 if __name__ == "__main__":

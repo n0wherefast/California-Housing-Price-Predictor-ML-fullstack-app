@@ -47,7 +47,7 @@ function EDA() {
         //     .then((res) => res.json())
         //     .then((json) => setData(json))
         //     .catch((err) => console.error("Errore caricamento EDA:", err))
-        //     .finally(() => setLoading(false));
+        //     
         // }, []);
 
         useEffect(() => {
@@ -72,7 +72,8 @@ function EDA() {
                     throw err;
                 }
                 })
-                .catch((err) => console.error("❌ Errore caricamento EDA:", err));
+                .catch((err) => console.error("❌ Errore caricamento EDA:", err))
+                .finally(() => setLoading(false));
             }, []);
 
 
