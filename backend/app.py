@@ -9,31 +9,16 @@ from pathlib import Path
 # --- Configurazione app Flask ---
 app = Flask(__name__)
 
-
-def handle_options():
-    if request.method == "OPTIONS":
-        response = app.make_default_options_response()
-        headers = None
-        if "ACCESS_CONTROL_REQUEST_HEADERS" in request.headers:
-            headers = request.headers["ACCESS_CONTROL_REQUEST_HEADERS"]
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add("Access-Control-Allow-Headers", headers or "*")
-        response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        return response
-
 CORS(
     app,
     resources={r"/*": {"origins": [
+        # "http://localhost:3000"
         "https://california-housing-price-predictor-vercel.app",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000"
+        
     ]}},
     supports_credentials=True,
-    allow_headers=["Content-Type", "Authorization"],
-    expose_headers=["Content-Type", "Authorization"],
-    methods=["GET", "POST", "OPTIONS"]
+    expose_headers=["Content-Type", "Authorization"]
 )
-
 # --- Percorsi ---
 BASE_DIR = Path(__file__).parent
 MODEL_PATH = BASE_DIR / "model" / "housing_model.joblib"
@@ -131,11 +116,3 @@ def eda():
 if __name__ == "__main__":
     from os import environ
     app.run(host="0.0.0.0", port=int(environ.get("PORT", 5000)))
-
-
-@app.after_request
-def add_cors_headers(response):
-    response.headers["Access-Control-Allow-Origin"] = "https://california-housing-price-predictor-vercel.app"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-    return response
