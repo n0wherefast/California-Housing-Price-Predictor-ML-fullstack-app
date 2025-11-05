@@ -36,7 +36,12 @@ function EDA() {
 
         useEffect(() => {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}/eda`,{
-                mode:'cors'
+               method: "GET",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                mode: "cors",              
+                credentials: "include", 
             }
             )
             .then((res) => res.json())
