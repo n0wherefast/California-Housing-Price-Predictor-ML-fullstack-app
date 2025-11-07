@@ -26,12 +26,12 @@ const Tooltip = dynamic(
 export default function GeoMapLeaflet({ data }: Props) {
          const [isClient, setIsClient] = useState(false);
 
-  // Evita errori "window is not defined" durante SSR
-             useEffect(() => setIsClient(true), []);
+     // Evita errori "window is not defined" durante SSR
+       useEffect(() => setIsClient(true), []);
 
         if (!data || data.length === 0)
             return <p className="text-center text-gray-500">Nessun dato disponibile</p>;
-          if (!isClient) return <p>🗺️ Caricamento mappa...</p>;
+        if (!isClient) return <p>🗺️ Caricamento mappa...</p>;
         // scala colore semplice (blu -> giallo -> rosso)
 
         const colorScale = (value: number) => {

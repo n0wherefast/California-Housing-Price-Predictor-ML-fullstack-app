@@ -1,17 +1,17 @@
 
 export default function AboutPage() {
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white mt-10 rounded-2xl shadow-md">
-      <h2 className="text-3xl font-bold text-blue-700 mb-4 text-center">
+    <div className="max-w-4xl mx-auto p-8 text-gray-600 bg-white mt-10 rounded-2xl shadow-md border-2 border-indigo-400">
+      <h2 className="text-3xl font-bold text-sky-500 mb-4 text-center">
         ℹ️ About & Dataset Info
       </h2>
 
-      <p className="text-gray-700 leading-relaxed mb-4 text-lg">
+      <p className=" leading-relaxed mb-4 text-lg">
         Questo progetto utilizza il dataset{" "}
         <strong>California Housing Prices</strong>, fornito dal{" "}
         <a
           href="https://scikit-learn.org/stable/datasets/real_world.html#california-housing-dataset"
-          className="text-blue-600 hover:underline"
+          className="text-sky-500 hover:underline"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -22,7 +22,7 @@ export default function AboutPage() {
         geografiche come:
       </p>
 
-      <ul className="list-disc list-inside text-gray-700 mb-6">
+      <ul className="list-disc list-inside  mb-6">
         <li><strong>latitude / longitude</strong> – coordinate geografiche</li>
         <li><strong>housing median age</strong> – età mediana delle abitazioni</li>
         <li><strong>total_rooms / total_bedrooms</strong> – numero medio di stanze</li>
@@ -42,7 +42,7 @@ export default function AboutPage() {
         Durante il training sono state eseguite:
       </p>
 
-      <ul className="list-disc list-inside text-gray-700 mb-6">
+      <ul className="list-disc list-inside  mb-6">
         <li>Rimozione outlier su variabili chiave (valore casa, età, reddito)</li>
         <li>Normalizzazione delle feature numeriche</li>
         <li>Encoding della variabile categorica <code>ocean_proximity</code></li>
@@ -50,7 +50,7 @@ export default function AboutPage() {
         <li>Valutazione tramite R², MAE e RMSE</li>
       </ul>
 
-      <p className="text-gray-700 leading-relaxed mb-4">
+      <p className=" leading-relaxed mb-4">
         Il modello è stato poi integrato in un’API Flask per permettere
         predizioni in tempo reale da un frontend Next.js.  
         L’interfaccia invia i dati in formato JSON, e il backend restituisce il
@@ -61,7 +61,7 @@ export default function AboutPage() {
         🎯 Obiettivo del progetto
       </h3>
 
-      <p className="text-gray-700 leading-relaxed text-lg">
+      <p className=" leading-relaxed text-lg">
         Dimostrare come sia possibile creare un’applicazione completa di{" "}
         <strong>Data Science + Web Development</strong>, unendo un modello di
         machine learning Python a un’interfaccia moderna e reattiva.

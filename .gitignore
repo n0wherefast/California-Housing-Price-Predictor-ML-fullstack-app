@@ -72,3 +72,4 @@ frontend/.env.test.local
 *.bak
 Thumbs.db
 desktop.ini
+notebook/.EDA_datasets.ipynb

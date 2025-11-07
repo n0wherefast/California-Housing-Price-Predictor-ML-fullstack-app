@@ -15,7 +15,7 @@ import {HeatMapProps} from "../ref/types"
 
 function BarchartMedianIncome({distIncome}:any) {
   return (
-    <div>
+    <div className=''>
               <h3 className="text-xl font-semibold mb-3 text-gray-800">
                 Distribuzione del reddito medio
               </h3>
@@ -55,11 +55,11 @@ function BarchartMedianIncome({distIncome}:any) {
 
 function BarchartDistAge({distAge}:any) {
   return (
-    <div>
-       <h3 className="text-xl font-semibold mt-10 mb-3 text-gray-800">
+    <div className=''>
+       <h3 className="text-xl font-semibold mb-3 text-gray-800">
         Distribuzione dell’età mediana delle abitazioni
       </h3>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={350}>
         <BarChart data={distAge}>
           <CartesianGrid strokeDasharray="3 3" />
         <XAxis

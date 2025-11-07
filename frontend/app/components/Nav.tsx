@@ -9,9 +9,9 @@ function Nav() {
   const [open, setOpen] = useState(false);
   const navLinks = [
       { href: "/", label: "Home" },
-      { href: "#EDA", label: "EDA" },
-      { href: "#MT", label: "Metrics" },
       { href: "#AB", label: "About" },
+      { href: "#MT", label: "Metrics" },
+      { href: "#EDA", label: "EDA" },
       { href: "https://github.com/n0wherefast/California-Housing-Price-Predictor-ML-fullstack-app", label: "GitHub" },
     ];
 
@@ -19,7 +19,7 @@ function Nav() {
     <>
 
 
- <nav className="bg-blue-600 text-white shadow-md fixed top-0 left-0 right-0 z-9999 font-bold">
+ <nav className="bg-sky-600 text-white shadow-md fixed top-0 left-0 right-0 z-9999 font-bold">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               {/* Titolo / Logo */}
@@ -42,7 +42,7 @@ function Nav() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="hover:text-blue-200 transition-colors"
+                    className="hover:text-sky-800 transition-colors"
                   >
                     {link.label}
                   </Link>

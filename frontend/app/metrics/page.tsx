@@ -73,8 +73,9 @@ const errorData =
 
   return (
 
-    <div className="max-w-5xl mx-auto bg-white p-8 mt-10 rounded-2xl shadow-md">
-      <h2 className="text-3xl font-bold text-blue-700 mb-6 text-center">
+    <div className="max-w-5xl mx-auto bg-white p-8 mt-10 rounded-2xl shadow-md border-2 border-indigo-400">
+          
+      <h2 className="text-3xl font-bold text-sky-500 mb-6 text-center">
         📊 Model Performance Metrics
       </h2>
 
@@ -125,7 +126,7 @@ const errorData =
 
                 {/* 📈 Grafico R² */}
             <div className="bg-gray-50 p-6 rounded-lg shadow mb-10">
-                <h3 className="text-xl font-semibold mb-4 text-center text-gray-700">
+                <h3 className="text-xl font-semibold mb-4 text-center text-sky-700">
                 R² Train vs Test
                 </h3>
                 <p className="text-gray-600 text-center mt-6">
@@ -164,7 +165,7 @@ const errorData =
 
            {/* 💰 Grafico MAE e RMSE */}
             <div className="bg-gray-50 p-6 rounded-lg shadow">
-                <h3 className="text-xl font-semibold mb-4 text-center text-gray-700">
+                <h3 className="text-xl font-semibold mb-4 text-center text-sky-700">
                 MAE e RMSE (Errori in $)
                 </h3>
                 <p className="text-gray-600 text-center mt-6"> 

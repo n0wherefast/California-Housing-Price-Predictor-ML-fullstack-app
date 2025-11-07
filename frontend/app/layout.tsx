@@ -38,10 +38,10 @@ export default function RootLayout({
 
         {/* 🔹 Titolo principale */}
         <header className="text-center mt-8 px-6 pt-16">
-          <h2 className="text-3xl font-semibold text-gray-700">
+          <h2 className="text-4xl font-semibold text-sky-600">
             Predizione del valore mediano delle case in California
           </h2>
-          <p className="text-gray-600 mt-2 max-w-2xl mx-auto text-2xl">
+          <p className="text-gray-600 mt-2 max-w-2xl mx-auto text-xl text-justify">
             Questa web app utilizza un modello Machine Learning di regressione lineare allenato
             sul dataset California Housing per stimare i prezzi medi delle case
             in base a posizione, età, popolazione e reddito medio.

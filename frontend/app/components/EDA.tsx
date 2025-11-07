@@ -34,22 +34,6 @@ function EDA() {
         const [data, setData] = useState<EdaData | null>(null);
         const [loading, setLoading] = useState(true);
 
-        // useEffect(() => {
-        //     fetch(`${process.env.NEXT_PUBLIC_API_URL}/eda`,{
-        //        method: "GET",
-        //         headers: {
-        //         "Content-Type": "application/json",
-        //         },
-        //         mode: "cors",              
-        //         credentials: "include", 
-        //     }
-        //     )
-        //     .then((res) => res.json())
-        //     .then((json) => setData(json))
-        //     .catch((err) => console.error("Errore caricamento EDA:", err))
-        //     
-        // }, []);
-
         useEffect(() => {
             console.log("🌐 Fetch EDA da:", `${process.env.NEXT_PUBLIC_API_URL}/eda`);
 
@@ -111,12 +95,12 @@ function EDA() {
         const distValue = makeDist(data.distributions.median_house_value);
 
         return (
-        <div className=" max-w-6xl mx-auto md:p-8 bg-white mt-10 rounded-2xl shadow">
+        <div className=" max-w-5xl mx-auto md:p-8 bg-white mt-10 rounded-2xl shadow border-2 border-indigo-400">
             
                     {/* <h2 className="text-3xl font-bold text-blue-700 mb-6 text-center">
                         📊 Analisi Esplorativa dei Dati (EDA)
                     </h2> */}
-                    <h2 className="text-2xl font-bold text-blue-700 mb-4 flex items-center justify-center gap-2">
+                    <h2 className="text-2xl font-bold text-sky-500 mb-4 flex items-center justify-center gap-2">
                     Analisi Esplorativa dei Dati (EDA)
                     <span className="text-gray-400 text-lg cursor-help" title="Exploratory Data Analysis: visualizza distribuzioni e correlazioni tra variabili.">📊 </span>
                     </h2>
@@ -124,7 +108,7 @@ function EDA() {
                     <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-justify mb-5">
                         L’analisi esplorativa (EDA) mostra la distribuzione delle principali variabili
                         numeriche e le loro relazioni. Si osserva una forte{" "}
-                        <span className="font-semibold text-blue-600">
+                        <span className="font-semibold text-sky-600">
                             correlazione positiva
                         </span>{" "}
                         tra il <span className="font-semibold">reddito medio</span> e il{" "}
@@ -134,11 +118,11 @@ function EDA() {
                         fattori che determinano il prezzo delle abitazioni in California.
                     </p>
 
-                    <p className="text-gray-600 text-center mb-5 text-xl">
+                    <p className="text-gray-600 text-center mb-5 text-2xl">
                         Grafici dinamici generati dal backend Flask sul dataset California Housing.
                     </p>
                     <div className="bg-gray-50 p-4 rounded-lg shadow">     {/* 🗺️ Distribuzione geografica interattiva */}
-                                <GeoMapLeaflet data={data.geo_sample}/>
+                        <GeoMapLeaflet data={data.geo_sample}/>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-3">
                         

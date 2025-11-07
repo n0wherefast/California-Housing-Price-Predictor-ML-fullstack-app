@@ -66,13 +66,13 @@ const [result, setResult] = useState<PredictionResult | null>({
 }
 
   return (
-        <div className="flex justify-center md:max-h-[74vh] md:min-h-[60vh] p-6 px-4  mt-4">
-        <div className="max-w-2xl   "></div>
+        <div className="flex justify-center gap-10 md:max-h-[74vh] md:min-h-[60vh] p-6 px-4  mt-4">
+        
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-2xl p-6 w-full "
+        className="bg-white w-3xl shadow-lg rounded-2xl p-6  border-2 border-indigo-400 "
       >
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+        <h2 className="text-2xl font-bold text-center text-sky-500 mb-6">
           Predizione Prezzo Casa 🏠
         </h2>
 
@@ -102,7 +102,7 @@ const [result, setResult] = useState<PredictionResult | null>({
                 name={key}
                 value={form [field]}
                 onChange={handleChange}
-                className="border rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border  border-gray-500 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder={`Inserisci ${label.toLowerCase()}`}
                 title={label}
               />
@@ -134,10 +134,10 @@ const [result, setResult] = useState<PredictionResult | null>({
         </div>
 
         {/* 🔹 Submit Button */}
-        <button
+        <div className="flex w-full justify-center"><button
           type="submit"
           disabled={loading}
-          className={`mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow transition-colors ${
+          className={`mt-6 w-1/2 bg-sky-500 hover:bg-sky-700 text-white font-semibold py-3 rounded-lg shadow transition-colors ${
             loading
               ? "bg-blue-400 cursor-not-allowed"
               : "bg-blue-600 hover:bg-blue-700"
@@ -151,7 +151,7 @@ const [result, setResult] = useState<PredictionResult | null>({
           ) : (
             "Predici Valore"
           )}
-        </button>
+        </button></div>
         <div className="border-2 border-slate-500 mt-3 w-full  rounded-lg ">
          {result && (
         <div className="h-12 text-center flex justify-center items-center">
@@ -170,7 +170,9 @@ const [result, setResult] = useState<PredictionResult | null>({
       )}
          </div>
       </form>
-      
+      {/* <div className="max-w-2xl "> Questa web app utilizza un modello Machine Learning di regressione lineare allenato
+            sul dataset California Housing per stimare i prezzi medi delle case
+            in base a posizione, età, popolazione e reddito medio.</div> */}
     </div>
   );
 }

@@ -9,15 +9,6 @@ from pathlib import Path
 # --- Configurazione app Flask ---
 app = Flask(__name__)
 
-# CORS(
-#     app,
-#     resources={r"/*": {"origins": [
-#         # "http://localhost:3000"
-#         "https://california-housing-price-predictor-vercel.app",
-#     ]}},
-#     supports_credentials=True,
-#     expose_headers=["Content-Type", "Authorization"]
-# )
 ALLOWED_ORIGINS = [
     "https://california-housing-price-predictor.vercel.app",
     "http://localhost:3000"
@@ -52,6 +43,50 @@ DATA_PATH = BASE_DIR / "data" / "housing.csv"
 
 # --- Caricamento modello ML ---
 model = joblib.load(MODEL_PATH)
+
+
+# Preparazione dati per EDA (all'avvio)
+
+
+def prepare_eda_data():
+        df = pd.read_csv(DATA_PATH)
+
+        # Filtri leggeri per pulizia
+        df = df[df["median_house_value"] <= 500000]
+        df = df[df["housing_median_age"] <= 50]
+        df = df[df["median_income"] <= 15]
+
+        # Funzione helper per histogrammi
+        def make_distribution(series, bins=10, round_digits=2):
+            counts, bin_edges = np.histogram(series, bins=bins)
+            formatted = {
+                f"{round(bin_edges[i], round_digits)} – {round(bin_edges[i + 1], round_digits)}": int(counts[i])
+                for i in range(len(bin_edges) - 1)
+            }
+            return formatted
+
+        stats = df.describe(include="all").replace({np.nan: None}).to_dict()
+
+        distributions = {
+            "median_income": make_distribution(df["median_income"], bins=12),
+            "housing_median_age": make_distribution(df["housing_median_age"], bins=10, round_digits=1),
+            "median_house_value": make_distribution(df["median_house_value"], bins=12, round_digits=0),
+        }
+
+        corr_matrix = df.corr(numeric_only=True).round(3).replace({np.nan: None}).to_dict()
+
+        # Campione ridotto per mappe
+        sample_data = (
+            df.sample(5000, random_state=42)[["latitude", "longitude", "median_house_value"]]
+            .to_dict(orient="records")
+        )
+        return{ "summary_stats": stats,
+                "distributions": distributions,
+                "correlations": corr_matrix,
+                "geo_sample": sample_data}
+
+eda_data = prepare_eda_data()
+
 
 # --- Endpoint base ---
 @app.route("/", methods=["GET"])
@@ -92,49 +127,13 @@ def metrics():
         return jsonify(metrics_data)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
 
 # --- Endpoint EDA ---
 @app.route("/eda", methods=["GET"])
 def eda():
     try:
-        df = pd.read_csv(DATA_PATH)
-
-        # Filtri leggeri per pulizia
-        df = df[df["median_house_value"] <= 500000]
-        df = df[df["housing_median_age"] <= 50]
-        df = df[df["median_income"] <= 15]
-
-        # Funzione helper per histogrammi
-        def make_distribution(series, bins=10, round_digits=2):
-            counts, bin_edges = np.histogram(series, bins=bins)
-            formatted = {
-                f"{round(bin_edges[i], round_digits)} – {round(bin_edges[i + 1], round_digits)}": int(counts[i])
-                for i in range(len(bin_edges) - 1)
-            }
-            return formatted
-
-        stats = df.describe(include="all").replace({np.nan: None}).to_dict()
-
-        distributions = {
-            "median_income": make_distribution(df["median_income"], bins=12),
-            "housing_median_age": make_distribution(df["housing_median_age"], bins=10, round_digits=1),
-            "median_house_value": make_distribution(df["median_house_value"], bins=12, round_digits=0),
-        }
-
-        corr_matrix = df.corr(numeric_only=True).round(3).replace({np.nan: None}).to_dict()
-
-        # Campione ridotto per mappe
-        sample_data = (
-            df.sample(5000, random_state=42)[["latitude", "longitude", "median_house_value"]]
-            .to_dict(orient="records")
-        )
-
-        return jsonify({
-            "summary_stats": stats,
-            "distributions": distributions,
-            "correlations": corr_matrix,
-            "geo_sample": sample_data
-        })
+     return jsonify(eda_data)
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
