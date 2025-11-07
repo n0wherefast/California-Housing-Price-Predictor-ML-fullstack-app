@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import Nav from "./components/Nav";
+import { Analytics } from "@vercel/analytics/next"
 
 
 
@@ -33,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="it">
       <body className={`${geistSans.variable} ${geistMono.variable}bg-gray-100 text-gray-800  antialiased font-bold flex flex-col justify-center`}>
+        <Analytics/>
         {/* 🔹 Navbar */}
         <Nav/>
 
