@@ -22,9 +22,7 @@ export default function HouseForm() {
     ocean_proximity: "NEAR BAY",
   });
 
-const [result, setResult] = useState<PredictionResult | null>({
-  predicted_house_value: "Valore stimato: ",
-});
+const [result, setResult] = useState<PredictionResult | null>({});
 
   const [loading, setLoading] = useState(false);
 
@@ -61,12 +59,12 @@ const [result, setResult] = useState<PredictionResult | null>({
   if (isNaN(num)) return " ";
   return num.toLocaleString("it-IT", {
     style: "currency",
-    currency: "EUR",
+    currency: "USD",
   });
 }
 
   return (
-      <div className="flex flex-col md:flex-row gap-10   md:p-6 md:px-4 px-1  md:mt-4">
+      <div className="flex flex-col md:flex-row gap-10   md:p-2 md:px-4 px-1  md:mt-4">
         <div className="w-full grid grid-cols-1 gap-2 border-2 rounded-2xl border-indigo-400 p-3">
               <div className="md:max-w-[35vw] pl-2 py-4 text-white ">
                 <div className="flex p-2 gap-4">
@@ -158,11 +156,8 @@ const [result, setResult] = useState<PredictionResult | null>({
                     }`}
                   >
                     {loading ? (
-                      <div className="bg-slate-800 rounded-lg w-[97%]  h-6">
-                        {/* <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span> */}
-                        {/* <span className="relative bg-slate-900 rounded-full px-6 py-2"> */}
-                          calcolo in corso..
-                        {/* </span> */}
+                      <div className="bg-slate-600 rounded-md w-[97%] text-sm flex items-center justify-center h-6">
+                          Calcolo in corso..
                       </div>
                     ) : (
                       "Predici Valore"
@@ -183,10 +178,8 @@ const [result, setResult] = useState<PredictionResult | null>({
                         <p className="text-red-500">{result.error}</p>
                       ) : (
                       <p className="text-4xl font-semibold  transition-opacity duration-700 opacity-100">
-                          
-                        {formatCurrency(
-                            typeof result.predicted_house_value === "string" ? parseFloat(result.predicted_house_value) : result.predicted_house_value ?? 0 )}
-                        </p>
+                        {result? formatCurrency(typeof result.predicted_house_value === "string" ? parseFloat(result.predicted_house_value) : result.predicted_house_value ?? 0 ) : ( <p>00.0</p>) }  
+                      </p>
                       )}
                     </div>
                   )}
@@ -194,11 +187,11 @@ const [result, setResult] = useState<PredictionResult | null>({
                     </div>
 
                 <div className="bg-slate-900 px-4 py-4 text-white border-2 rounded-lg border-indigo-400">
-                      <p className="mt-2 max-w-2xl mx-auto text-md">
-                      <h2 className="text-2xl">Questa Web App</h2> utilizza un modello Machine Learning di regressione lineare allenato
+                      <h2 className="mt-2 max-w-2xl mx-auto text-md">
+                      <p className="text-2xl">Questa Web App</p> utilizza un modello Machine Learning di regressione lineare allenato
                       sul dataset California Housing per stimare i prezzi medi delle case
                       in base a posizione, età, popolazione e reddito medio.
-                    </p>
+                    </h2>
                 </div>
             </div>    
           </div>
