@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import Nav from "./components/Nav";
-import { Analytics } from "@vercel/analytics/react"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +27,6 @@ export default function RootLayout({
   return (
     <html lang="it">
       <body className={`${geistSans.variable} ${geistMono.variable} bg-linear-to-b from-slate-950 via-slate-slate- to-slate-900/60 antialiased font-bold flex flex-col justify-center`}>
-        <Analytics/>
         <Nav/>
         <header className="text-center mt-8 px-6 pt-16">
         </header>
