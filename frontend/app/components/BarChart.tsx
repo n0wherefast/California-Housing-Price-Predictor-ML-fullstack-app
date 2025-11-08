@@ -136,7 +136,7 @@ function BarchartDistValueHouse({distValue}:any) {
 function HeatMap({data}:HeatMapProps) {
   return (
     <div>
-        <h3 className="text-xl font-semibold mt-10 mb-3 text-gray-800">
+        <h3 className="text-xl font-semibold mt-10 mb-3 p-2 text-gray-800">
                 Matrice di correlazione tra le variabili numeriche
             </h3>
             <div className="bg-gray-50  rounded-lg shadow  min-w-[300px] sm:min-w-[700px] md:min-w-[900px]">

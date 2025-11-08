@@ -46,7 +46,7 @@ const [result, setResult] = useState<PredictionResult | null>({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-
+       await new Promise((resolve) => setTimeout(resolve, 3000));
       const data = await res.json();
       setResult(data);
       console.log(data)
@@ -66,113 +66,142 @@ const [result, setResult] = useState<PredictionResult | null>({
 }
 
   return (
-        <div className="flex justify-center gap-10 md:max-h-[74vh] md:min-h-[60vh] p-6 px-4  mt-4">
+      <div className="flex flex-col md:flex-row gap-10   md:p-6 md:px-4 px-1  md:mt-4">
+        <div className="w-full grid grid-cols-1 gap-2 border-2 rounded-2xl border-indigo-400 p-3">
+              <div className="md:max-w-[35vw] pl-2 py-4 text-white ">
+                <div className="flex p-2 gap-4">
+                  <p className="bg-slate-500 p-1 md:px-2 px-1 rounded-2xl  text-xs h-6 w-full md:w-auto ">Machine Learning</p>
+                  <p className="bg-slate-500 p-1 md:px-2 px-1 rounded-2xl text-xs w-full  md:w-auto ">Data Analisys</p>
+                  <p className="bg-slate-500 p-1 md:px-2 px-1 rounded-2xl  text-xs md:w-auto  ">AI</p>
+                </div>
+                <h1 className="max-w-[80%] text-3xl md:text-4xl font-extrabold">California Housing Price Predictor</h1>
+                <p className="text-xl md:text-2xl">
+                  Inserisci le catteristice dell&lsquo;area e ottieni una stima del valora mediano delle abitazioni
+                </p>
+              </div>
         
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white w-3xl shadow-lg rounded-2xl p-6  border-2 border-indigo-400 "
-      >
-        <h2 className="text-2xl font-bold text-center text-sky-500 mb-6">
-          Predizione Prezzo Casa 🏠
-        </h2>
+                <form
+                  onSubmit={handleSubmit}
+                  className="bg-white md:w-2xl shadow-lg rounded-2xl p-6  "
+                >
+                  <h2 className="text-2xl font-bold text-center text-sky-500 mb-6">
+                    Predizione Prezzo Casa 
+                  </h2>
 
-        {/* 🔹 GRID mobile-first */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
-            ["longitude", "Longitude"],
-            ["latitude", "Latitude"],
-            ["housing_median_age", "Housing Median Age"],
-            ["total_rooms", "Total Rooms"],
-            ["total_bedrooms", "Total Bedrooms"],
-            ["population", "Population"],
-            ["households", "Households"],
-            ["median_income", "Median Income"],
-          ].map(([key, label]) => {
-            const field = key as keyof HouseFeatures;
-           return( <div key={key} className="flex flex-col">
-              <label
-                htmlFor={key}
-                className="text-sm font-semibold text-gray-700 mb-1"
-              >
-                {label}
-              </label>
-              <input
-                type="text"
-                id={key}
-                name={key}
-                value={form [field]}
-                onChange={handleChange}
-                className="border  border-gray-500 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder={`Inserisci ${label.toLowerCase()}`}
-                title={label}
-              />
-            </div>)
-          })}
+                  {/* 🔹 GRID mobile-first */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[
+                      ["longitude", "Longitude"],
+                      ["latitude", "Latitude"],
+                      ["housing_median_age", "Housing Median Age"],
+                      ["total_rooms", "Total Rooms"],
+                      ["total_bedrooms", "Total Bedrooms"],
+                      ["population", "Population"],
+                      ["households", "Households"],
+                      ["median_income", "Median Income"],
+                    ].map(([key, label]) => {
+                      const field = key as keyof HouseFeatures;
+                    return( <div key={key} className="flex flex-col">
+                        <label
+                          htmlFor={key}
+                          className="text-sm font-semibold text-gray-700 mb-1"
+                        >
+                          {label}
+                        </label>
+                        <input
+                          type="text"
+                          id={key}
+                          name={key}
+                          value={form [field]}
+                          onChange={handleChange}
+                          className="border  border-gray-500 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder={`Inserisci ${label.toLowerCase()}`}
+                          title={label}
+                        />
+                      </div>)
+                    })}
+                  </div>
+
+                  {/* 🔹 Select - Ocean Proximity */}
+                  <div className="mt-4">
+                    <label
+                      htmlFor="ocean_proximity"
+                      className="text-sm font-semibold text-gray-700 mb-1 block"
+                    >
+                      Ocean Proximity
+                    </label>
+                    <select
+                      id="ocean_proximity"
+                      name="ocean_proximity"
+                      value={form.ocean_proximity}
+                      onChange={handleChange}
+                      className="border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="NEAR BAY">Near Bay</option>
+                      <option value="INLAND">Inland</option>
+                      <option value="NEAR OCEAN">Near Ocean</option>
+                      <option value="ISLAND">Island</option>
+                      <option value="1H OCEAN">1H Ocean</option>
+                    </select>
+                  </div>
+
+                  {/* 🔹 Submit Button */}
+                  <div className="flex w-full justify-center">
+                    
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className={`mt-6 w-1/2 bg-slate-800 hover:bg-sky-700 text-white font-semibold py-1 rounded-lg shadow transition-colors ${
+                      loading
+                        ? " cursor-not-allowed flex items-center justify-center  rounded-lg  bg-linear-to-r from-green-400  via-pink-500 to-yellow-400 animate-gradient"
+                        : ""
+                    }`}
+                  >
+                    {loading ? (
+                      <div className="bg-slate-800 rounded-lg w-[97%]  h-6">
+                        {/* <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span> */}
+                        {/* <span className="relative bg-slate-900 rounded-full px-6 py-2"> */}
+                          calcolo in corso..
+                        {/* </span> */}
+                      </div>
+                    ) : (
+                      "Predici Valore"
+                    )}
+                  </button></div>
+                
+                </form>
         </div>
 
-        {/* 🔹 Select - Ocean Proximity */}
-        <div className="mt-4">
-          <label
-            htmlFor="ocean_proximity"
-            className="text-sm font-semibold text-gray-700 mb-1 block"
-          >
-            Ocean Proximity
-          </label>
-          <select
-            id="ocean_proximity"
-            name="ocean_proximity"
-            value={form.ocean_proximity}
-            onChange={handleChange}
-            className="border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="NEAR BAY">Near Bay</option>
-            <option value="INLAND">Inland</option>
-            <option value="NEAR OCEAN">Near Ocean</option>
-            <option value="ISLAND">Island</option>
-            <option value="1H OCEAN">1H Ocean</option>
-          </select>
-        </div>
 
-        {/* 🔹 Submit Button */}
-        <div className="flex w-full justify-center"><button
-          type="submit"
-          disabled={loading}
-          className={`mt-6 w-1/2 bg-sky-500 hover:bg-sky-700 text-white font-semibold py-3 rounded-lg shadow transition-colors ${
-            loading
-              ? "bg-blue-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
-        >
-          {loading ? (
-            <div className="flex items-center justify-center gap-2">
-              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-              Calcolo in corso...
-            </div>
-          ) : (
-            "Predici Valore"
-          )}
-        </button></div>
-        <div className="border-2 border-slate-500 mt-3 w-full  rounded-lg ">
-         {result && (
-        <div className="h-12 text-center flex justify-center items-center">
-          {result.error ? (
-            <p className="text-red-500">{result.error}</p>
-          ) : (
-           <p className="text-xl font-semibold text-green-600 transition-opacity duration-700 opacity-100">
-              💰 Valore stimato: {" "}
-            {formatCurrency(
-                typeof result.predicted_house_value === "string" ? parseFloat(result.predicted_house_value) : result.predicted_house_value ?? 0
-                )
-}
-            </p>
-          )}
-        </div>
-      )}
-         </div>
-      </form>
-      {/* <div className="max-w-2xl "> Questa web app utilizza un modello Machine Learning di regressione lineare allenato
-            sul dataset California Housing per stimare i prezzi medi delle case
-            in base a posizione, età, popolazione e reddito medio.</div> */}
-    </div>
+            <div className="max-w-sm   text-white bg-trasparent "> 
+                  <div className="bg-slate-900 mb-4 px-4 py-4 text-white border-2 rounded-lg border-indigo-400">
+                  {/* <div className=" gap-4 mb-4 w-[20vw] flex flex-col p-4 py-3 justify-start  h-1/4 bg-slate-800  border-2 border-indigo-400  "> */}
+                    <h1 className=" text-2xl flex justify-start  w-full ">Valore stimato</h1>
+                    {result && (
+                    <div className="h-12 text-center flex justify-start items-center">
+                      {result.error ? (
+                        <p className="text-red-500">{result.error}</p>
+                      ) : (
+                      <p className="text-4xl font-semibold  transition-opacity duration-700 opacity-100">
+                          
+                        {formatCurrency(
+                            typeof result.predicted_house_value === "string" ? parseFloat(result.predicted_house_value) : result.predicted_house_value ?? 0 )}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  <p className=" font-light">Stima per valore mediano area</p>
+                    </div>
+
+                <div className="bg-slate-900 px-4 py-4 text-white border-2 rounded-lg border-indigo-400">
+                      <p className="mt-2 max-w-2xl mx-auto text-md">
+                      <h2 className="text-2xl">Questa Web App</h2> utilizza un modello Machine Learning di regressione lineare allenato
+                      sul dataset California Housing per stimare i prezzi medi delle case
+                      in base a posizione, età, popolazione e reddito medio.
+                    </p>
+                </div>
+            </div>    
+          </div>
+          
   );
 }

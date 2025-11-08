@@ -2,7 +2,7 @@
 export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto p-8 text-gray-600 bg-white mt-10 rounded-2xl shadow-md border-2 border-indigo-400">
-      <h2 className="text-3xl font-bold text-sky-500 mb-4 text-center">
+      <h2 className="text-3xl font-extrabold text-slate-700 mb-4 text-center">
         ℹ️ About & Dataset Info
       </h2>
 

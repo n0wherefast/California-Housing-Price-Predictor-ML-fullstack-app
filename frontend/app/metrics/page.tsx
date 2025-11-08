@@ -75,7 +75,7 @@ const errorData =
 
     <div className="max-w-5xl mx-auto bg-white p-8 mt-10 rounded-2xl shadow-md border-2 border-indigo-400">
           
-      <h2 className="text-3xl font-bold text-sky-500 mb-6 text-center">
+      <h2 className="text-3xl font-extrabold text-slate-700 mb-6 text-center">
         📊 Model Performance Metrics
       </h2>
 

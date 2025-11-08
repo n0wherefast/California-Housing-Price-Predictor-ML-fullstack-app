@@ -9,8 +9,8 @@ const EDA = dynamic(() => import("./components/EDA"), { ssr: false });
 
 export default function Home() {
   return (
-    <div className=" p-2 grid grid-cols-1 md:grid-cols-1   ">
-        <div className="flex-col md:flex w-full gap-2">
+    <div className=" p-2 flex flex-col ">
+        <div className="flex flex-col  w-full gap-2 ">
             <HouseForm />
             <div id="AB"/>
             <AboutPage/>

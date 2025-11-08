@@ -100,7 +100,7 @@ function EDA() {
                     {/* <h2 className="text-3xl font-bold text-blue-700 mb-6 text-center">
                         📊 Analisi Esplorativa dei Dati (EDA)
                     </h2> */}
-                    <h2 className="text-2xl font-bold text-sky-500 mb-4 flex items-center justify-center gap-2">
+                    <h2 className="text-2xl font-extrabold text-slate-700 p-2 mb-4 flex items-center justify-center gap-2">
                     Analisi Esplorativa dei Dati (EDA)
                     <span className="text-gray-400 text-lg cursor-help" title="Exploratory Data Analysis: visualizza distribuzioni e correlazioni tra variabili.">📊 </span>
                     </h2>

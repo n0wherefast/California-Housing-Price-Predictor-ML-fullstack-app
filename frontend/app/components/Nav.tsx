@@ -19,12 +19,12 @@ function Nav() {
     <>
 
 
- <nav className="bg-sky-600 text-white shadow-md fixed top-0 left-0 right-0 z-9999 font-bold">
+ <nav className="bg-slate-900 border-b border-indigo-400 text-white shadow-md fixed top-0 left-0 right-0 z-9999 font-bold">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               {/* Titolo / Logo */}
               <Link href="/" className="text-lg sm:text-xl font-bold">
-                California Housing Dashboard
+                AI California Housing  Dashboard
               </Link>
 
               {/* Menu mobile toggle */}
@@ -53,13 +53,13 @@ function Nav() {
 
           {/* Menu mobile aperto */}
           {open && (
-            <div className="sm:hidden bg-blue-700 shadow-inner">
+            <div className="sm:hidden bg-slate-800 shadow-inner">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block px-4 py-3 border-b border-blue-600 hover:bg-blue-600 transition"
+                  className="block px-4 py-3 border-b border-indigo-600 hover:bg-blue-600 transition"
                 >
                   {link.label}
                 </Link>

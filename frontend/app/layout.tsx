@@ -33,21 +33,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="it">
-      <body className={`${geistSans.variable} ${geistMono.variable}bg-gray-100 text-gray-800  antialiased font-bold flex flex-col justify-center`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-linear-to-b from-slate-950 via-slate-slate- to-slate-900/60 antialiased font-bold flex flex-col justify-center`}>
         <Analytics/>
         {/* 🔹 Navbar */}
         <Nav/>
 
         {/* 🔹 Titolo principale */}
         <header className="text-center mt-8 px-6 pt-16">
-          <h2 className="text-4xl font-semibold text-sky-600">
+          {/* <h2 className="text-4xl font-semibold text-sky-600">
             Predizione del valore mediano delle case in California
           </h2>
           <p className="text-gray-600 mt-2 max-w-2xl mx-auto text-xl text-justify">
             Questa web app utilizza un modello Machine Learning di regressione lineare allenato
             sul dataset California Housing per stimare i prezzi medi delle case
             in base a posizione, età, popolazione e reddito medio.
-          </p>
+          </p> */}
         </header>
 
         {/* 🔹 Contenuto principale */}
