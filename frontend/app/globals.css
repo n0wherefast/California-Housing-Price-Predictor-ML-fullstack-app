@@ -33,3 +33,12 @@ body {
   animation: gradient 5s ease infinite;
   background-size: 400% 400%;
 }
+
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 5px #00f2fe, 0 0 10px #4facfe, 0 0 20px #00f2fe; }
+  50% { text-shadow: 0 0 15px #4facfe, 0 0 30px #00f2fe, 0 0 50px #4facfe; }
+}
+
+.animate-glow {
+  animation: glow 1.5s ease-in-out infinite;
+}

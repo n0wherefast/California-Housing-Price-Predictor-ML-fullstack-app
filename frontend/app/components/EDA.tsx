@@ -105,7 +105,7 @@ function EDA() {
                     <span className="text-gray-400 text-lg cursor-help" title="Exploratory Data Analysis: visualizza distribuzioni e correlazioni tra variabili.">📊 </span>
                     </h2>
 
-                    <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-justify mb-5">
+                    <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-justify mb-5 p-2">
                         L’analisi esplorativa (EDA) mostra la distribuzione delle principali variabili
                         numeriche e le loro relazioni. Si osserva una forte{" "}
                         <span className="font-semibold text-sky-600">

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {HouseFeatures} from "../ref/types"
+import AILoader from './AIloader';
 
 export type PredictionResult = {
   predicted_house_value?: number | string;
@@ -23,8 +24,8 @@ export default function HouseForm() {
   });
 
 const [result, setResult] = useState<PredictionResult | null>({});
-
-  const [loading, setLoading] = useState(false);
+const [loading, setLoading] = useState(false);
+const tags = ['Machine Learning','Data Analisys','AI']
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement> ) => {
     const { name, value } = e.target;
@@ -68,9 +69,11 @@ const [result, setResult] = useState<PredictionResult | null>({});
         <div className="w-full grid grid-cols-1 gap-2 border-2 rounded-2xl border-indigo-400 p-3">
               <div className="md:max-w-[35vw] pl-2 py-4 text-white ">
                 <div className="flex p-2 gap-4">
-                  <p className="bg-slate-500 p-1 md:px-2 px-1 rounded-2xl  text-xs h-6 w-full md:w-auto ">Machine Learning</p>
-                  <p className="bg-slate-500 p-1 md:px-2 px-1 rounded-2xl text-xs w-full  md:w-auto ">Data Analisys</p>
-                  <p className="bg-slate-500 p-1 md:px-2 px-1 rounded-2xl  text-xs md:w-auto  ">AI</p>
+                  {tags.map((tag,key)=>{
+                    return(
+                      <p  key={key} className="bg-slate-500 rounded-2xl text-xs  px-2 ">{tag}</p>
+                    )
+                  })}
                 </div>
                 <h1 className="max-w-[80%] text-3xl md:text-4xl font-extrabold">California Housing Price Predictor</h1>
                 <p className="text-xl md:text-2xl">
@@ -170,9 +173,8 @@ const [result, setResult] = useState<PredictionResult | null>({});
 
             <div className="max-w-sm   text-white bg-trasparent "> 
                   <div className="bg-slate-900 mb-4 px-4 py-4 text-white border-2 rounded-lg border-indigo-400">
-                  {/* <div className=" gap-4 mb-4 w-[20vw] flex flex-col p-4 py-3 justify-start  h-1/4 bg-slate-800  border-2 border-indigo-400  "> */}
                     <h1 className=" text-2xl flex justify-start  w-full ">Valore stimato</h1>
-                    {result && (
+                    {loading? <AILoader/> :result && (
                     <div className="h-12 text-center flex justify-start items-center">
                       {result.error ? (
                         <p className="text-red-500">{result.error}</p>
